@@ -12,4 +12,8 @@ int k = 1200;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    public void test() {
+        int i = 1;
+    }
 }
