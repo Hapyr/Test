@@ -15,5 +15,6 @@ int k = 1200;
 
     public void test() {
         int i = 1;
+        int as = 0;
     }
 }
