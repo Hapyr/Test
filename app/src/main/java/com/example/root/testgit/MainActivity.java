@@ -1,31 +1,21 @@
 package com.example.root.testgit;
 
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity{
 
     Button B1,B2;
     TextView question,answer1, answer2;
     String ques,ans1,ans2;
 
-int k = 1200;
-    int a = 0;
+    public interface AsyncResponse {
+        void processFinish(String output);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,18 +28,36 @@ int k = 1200;
         answer2 = (TextView) findViewById(R.id.editText3);
     }
 
-    public void test() {
-        int i = 1;
-        int as = 0;
-    }
-
+    /// ------------------------------------------------------
+    /// --------- LOAD and SEND DATA to SERVER ---------------
+    /// ------------------------------------------------------
     public void vInsertData(View view)
     {
         ques = question.getText().toString();
         ans1 = answer1.getText().toString();
         ans2 = answer2.getText().toString();
 
-        BackgroundTask background = new BackgroundTask();
-        background.execute(ques,ans1,ans2);
+        ReadData insert = new ReadData(new AsyncResponse() {
+            @Override
+            public void processFinish(String output) {
+                // --- After finish the execute this Mothode will called ---
+                Toast.makeText(MainActivity.this, "New data saved...", Toast.LENGTH_SHORT).show();
+            }
+        });
+        insert.execute(ques,ans1,ans2);
     }
+
+    public void vGetData(View view)
+    {
+        ReadData data = new ReadData(new AsyncResponse() {
+            @Override
+            public void processFinish(String output) {
+                // --- After finish the execute this Mothode will called ---
+                question.setText(output);
+            }
+        });
+        data.execute();
+    }
+    /// ------------------------------------------------------
+
 }
