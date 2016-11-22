@@ -16,8 +16,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void vSwitchToEdit(View view) {
-        TextView testText = (TextView) findViewById(R.id.testText);
-        testText.setText("MMMMhhhhh..");
 
         Intent showCreate = new Intent(this, EditActivity.class);
         startActivity(showCreate);
