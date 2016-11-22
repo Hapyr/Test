@@ -2,6 +2,7 @@ package com.example.root.testgit;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class EditActivity extends Activity{
+public class EditActivity extends AppCompatActivity {
 
     Button B1,B2;
     TextView question,answer1, answer2;
