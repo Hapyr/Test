@@ -37,7 +37,7 @@ public class MainActivity extends Activity{
         ans1 = answer1.getText().toString();
         ans2 = answer2.getText().toString();
 
-        ReadData insert = new ReadData(new AsyncResponse() {
+        InsertData insert = new InsertData(new AsyncResponse() {
             @Override
             public void processFinish(String output) {
                 // --- After finish the execute this Mothode will called ---
