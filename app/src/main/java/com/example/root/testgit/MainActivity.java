@@ -26,6 +26,10 @@ public class MainActivity extends Activity{
         question = (TextView) findViewById(R.id.question);
         answer1 = (TextView) findViewById(R.id.editText2);
         answer2 = (TextView) findViewById(R.id.editText3);
+
+        // --- Question Class test ---
+        Question ques = new Question("Wie alt bin ich?","12","21");
+        ques.displayQuestion();
     }
 
     /// ------------------------------------------------------
