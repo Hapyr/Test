@@ -14,12 +14,6 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    /*fab.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-        }
-    });*/
 
     public void vSwitchToEdit(View view) {
         TextView testText = (TextView) findViewById(R.id.testText);
