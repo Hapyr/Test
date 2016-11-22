@@ -1,6 +1,7 @@
 package com.example.root.testgit;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -12,14 +13,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-class BackgroundTask extends AsyncTask<String,Void,String> {
-
-
+class InsertData extends AsyncTask<String,Void,String> {
     String connectUrl;
+    public MainActivity.AsyncResponse delegate = null; // --- Call back interface ---
+
+    public InsertData(MainActivity.AsyncResponse asyncResponse) {
+        // --- Assigning call back interfacethrough constructor ---
+        delegate = asyncResponse;
+    }
+
     @Override
     protected void onPreExecute() {
         connectUrl = "http://www.varbrooker-heide.de/add_question.php";
-
     }
 
     @Override
@@ -67,6 +72,6 @@ class BackgroundTask extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result) {
-
+        delegate.processFinish(result);
     }
 }
