@@ -7,14 +7,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
 public class MainActivity extends Activity{
 
     Button B1,B2;
     TextView question,answer1, answer2;
-    String ques,ans1,ans2;
+    Vector allQuestions = new Vector();
 
     public interface AsyncResponse {
-        void processFinish(String output);
+        void processFinish(String output) throws JSONException;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +34,6 @@ public class MainActivity extends Activity{
         question = (TextView) findViewById(R.id.question);
         answer1 = (TextView) findViewById(R.id.editText2);
         answer2 = (TextView) findViewById(R.id.editText3);
-
-        // --- Question Class test ---
-        Question ques = new Question("Wie alt bin ich?","12","21");
-        ques.displayQuestion();
     }
 
     /// ------------------------------------------------------
@@ -37,15 +41,15 @@ public class MainActivity extends Activity{
     /// ------------------------------------------------------
     public void vInsertData(View view)
     {
-        ques = question.getText().toString();
-        ans1 = answer1.getText().toString();
-        ans2 = answer2.getText().toString();
+        String ques = question.getText().toString();
+        String ans1 = answer1.getText().toString();
+        String ans2 = answer2.getText().toString();
 
         InsertData insert = new InsertData(new AsyncResponse() {
             @Override
             public void processFinish(String output) {
                 // --- After finish the execute this Mothode will called ---
-                Toast.makeText(MainActivity.this, "New data saved...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "new data saved", Toast.LENGTH_LONG).show();
             }
         });
         insert.execute(ques,ans1,ans2);
@@ -55,9 +59,34 @@ public class MainActivity extends Activity{
     {
         ReadData data = new ReadData(new AsyncResponse() {
             @Override
-            public void processFinish(String output) {
+            public void processFinish(String output) throws JSONException {
                 // --- After finish the execute this Mothode will called ---
-                question.setText(output);
+                TextView test = (TextView) findViewById(R.id.textView);
+                //test.setText(output);
+
+                JSONObject jObject  = new JSONObject(output);
+                String gesammt = "";
+
+                try {
+                    JSONArray result = jObject.getJSONArray("server_response");
+                    String ques,ans1,ans2;
+
+                    for(int i=0;i<result.length();i++)
+                    {
+                        ques = result.getJSONObject(i).getString("ques");
+                        ans1 = result.getJSONObject(i).getString("ans_1");
+                        ans2 = result.getJSONObject(i).getString("ans_2");
+
+                        allQuestions.add(new Question(ques,ans1,ans2));
+
+                        // --- test ausgabe eines elementes aus allQuestions ---
+                        // ((Question) (allQuestions.elementAt(i))).displayQuestion();
+                        gesammt += " -> " + ques + " - " + ans1 + " - " + ans2 + "\n";
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                test.setText(gesammt);
             }
         });
         data.execute();

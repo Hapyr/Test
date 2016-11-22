@@ -6,6 +6,8 @@ import android.widget.TextView;
 import com.example.root.testgit.MainActivity;
 import com.example.root.testgit.R;
 
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,6 +71,10 @@ class ReadData extends AsyncTask<String,MainActivity,String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        delegate.processFinish(result);
+        try {
+            delegate.processFinish(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
