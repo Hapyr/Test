@@ -1,8 +1,6 @@
 package com.example.root.testgit;
 
 import android.os.AsyncTask;
-import android.widget.Toast;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +13,9 @@ import java.net.URLEncoder;
 
 class InsertData extends AsyncTask<String,Void,String> {
     String connectUrl;
-    public MainActivity.AsyncResponse delegate = null; // --- Call back interface ---
+    public EditActivity.AsyncResponse delegate = null; // --- Call back interface ---
 
-    public InsertData(MainActivity.AsyncResponse asyncResponse) {
+    public InsertData(EditActivity.AsyncResponse asyncResponse) {
         // --- Assigning call back interfacethrough constructor ---
         delegate = asyncResponse;
     }

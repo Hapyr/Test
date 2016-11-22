@@ -1,9 +1,10 @@
 package com.example.root.testgit;
 
 import android.os.AsyncTask;
+import android.text.Editable;
 import android.widget.TextView;
 
-import com.example.root.testgit.MainActivity;
+import com.example.root.testgit.EditActivity;
 import com.example.root.testgit.R;
 
 import java.io.BufferedReader;
@@ -14,11 +15,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-class ReadData extends AsyncTask<String,MainActivity,String> {
+class ReadData extends AsyncTask<String,EditActivity,String> {
     String connectUrl;
-    public MainActivity.AsyncResponse delegate = null; // --- Call back interface ---
+    public EditActivity.AsyncResponse delegate = null; // --- Call back interface ---
 
-    public ReadData(MainActivity.AsyncResponse asyncResponse) {
+    public ReadData(EditActivity.AsyncResponse asyncResponse) {
         // --- Assigning call back interfacethrough constructor ---
         delegate = asyncResponse;
     }
@@ -62,7 +63,7 @@ class ReadData extends AsyncTask<String,MainActivity,String> {
     }
 
     @Override
-    protected void onProgressUpdate(MainActivity... values) {
+    protected void onProgressUpdate(EditActivity... values) {
         super.onProgressUpdate(values);
     }
 
