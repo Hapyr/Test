@@ -10,5 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.root.testgit.MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/testText"
+        android:text="Test Text" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30sp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:id="@+id/createBtn"
+        android:src="@android:drawable/ic_input_add"
+        android:onClick="vSwitchToEdit"/>
 </RelativeLayout>

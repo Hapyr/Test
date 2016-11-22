@@ -1,7 +1,11 @@
 package com.example.root.testgit;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -9,6 +13,20 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+    /*fab.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    });*/
+
+    public void vSwitchToEdit(View view) {
+        TextView testText = (TextView) findViewById(R.id.testText);
+        testText.setText("MMMMhhhhh..");
+
+        Intent showCreate = new Intent(this, EditActivity.class);
+        startActivity(showCreate);
     }
 
 }
