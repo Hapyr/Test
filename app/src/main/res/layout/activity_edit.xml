@@ -20,7 +20,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_height ="300dp"
+        android:layout_height ="50dp"
         tools:text="write your question..." />
 
     <EditText
@@ -64,5 +64,17 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="vInsertData" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button2"
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

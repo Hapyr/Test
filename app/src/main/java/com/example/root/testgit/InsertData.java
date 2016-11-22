@@ -1,6 +1,9 @@
 package com.example.root.testgit;
 
 import android.os.AsyncTask;
+
+import org.json.JSONException;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,6 +73,10 @@ class InsertData extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result) {
-        delegate.processFinish(result);
+        try {
+            delegate.processFinish(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
