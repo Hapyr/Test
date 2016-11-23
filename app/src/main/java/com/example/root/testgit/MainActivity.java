@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity{
         ReadData data = new ReadData(new AsyncResponse() {
             @Override
             public void processFinish(String output) throws JSONException {
-                // --- After finish the execute this Mothode will called ---
+                // --- After finish the execute this methode will called ---
             }
         });
         return data.execute().get();
