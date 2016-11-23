@@ -8,13 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity{
@@ -31,10 +29,9 @@ public class MainActivity extends AppCompatActivity{
 
         FillQuestionArrayList();
         FillListView(allQuestions);
-
-         //handle listview and assign adapter
-        //ListView lView = (ListView)findViewById(R.id.listdata);
-        //lView.setAdapter((ListAdapter) allQuestions);
+        ListView listView = (ListView) findViewById(R.id.listdata);
+        QuestionAdapter adapter = new QuestionAdapter(this, allQuestions);
+        listView.setAdapter(adapter);
     }
 
     public void vSwitchToEdit(View view) {
