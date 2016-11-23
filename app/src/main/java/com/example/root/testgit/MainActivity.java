@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity{
 
-    Vector<Question> allQuestions = new Vector();
+    ArrayList<Question> allQuestions = new ArrayList<Question>();
     public interface AsyncResponse {
         void processFinish(String output) throws JSONException;
     }
@@ -71,6 +70,7 @@ public class MainActivity extends AppCompatActivity{
         System.out.println("" + whatver);
         System.out.println(" --- " + allQuestions.size());
 
+        /*
         String[] QuesList = new String[allQuestions.size()];
         String[] Ans1List = new String[allQuestions.size()];
         String[] Ans2List = new String[allQuestions.size()];
@@ -81,11 +81,12 @@ public class MainActivity extends AppCompatActivity{
             Ans2List[i] = ((Question) allQuestions.elementAt(i)).getAnswer2();
         }
 
-        ListView listView1 = (ListView) findViewById(R.id.listdata);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, QuesList);
+        */
 
-        listView1.setAdapter(adapter);
+        ListView listView = (ListView) findViewById(R.id.listdata);
+        QuestionAdapter adapter = new QuestionAdapter(this, allQuestions);
+        listView.setAdapter(adapter);
     }
 
     public void vSwitchToEdit(View view) {
