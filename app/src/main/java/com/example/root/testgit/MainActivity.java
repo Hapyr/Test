@@ -26,64 +26,6 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String whatver = "";
-
-        try {
-            whatver = vGetData(this.findViewById(R.id.activity_main).getRootView());
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        TextView test = (TextView) findViewById(R.id.textView2);
-
-        JSONObject jObject  = null;
-        try {
-            jObject = new JSONObject(whatver);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        String gesammt = "";
-
-        try {
-            JSONArray result = jObject.getJSONArray("server_response");
-            String ques,ans1,ans2;
-
-            for(int i=0;i<result.length();i++)
-            {
-                ques = result.getJSONObject(i).getString("ques");
-                ans1 = result.getJSONObject(i).getString("ans_1");
-                ans2 = result.getJSONObject(i).getString("ans_2");
-
-                allQuestions.add(new Question(ques,ans1,ans2));
-
-                // --- test ausgabe eines elementes aus allQuestions ---
-                //((Question) (allQuestions.elementAt(i))).displayQuestion();
-                gesammt += " -> " + ques + " - " + ans1 + " - " + ans2 + " -------" + allQuestions.size() + "\n";
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        test.setText(gesammt);
-
-        System.out.println("" + whatver);
-        System.out.println(" --- " + allQuestions.size());
-
-        /*
-        String[] QuesList = new String[allQuestions.size()];
-        String[] Ans1List = new String[allQuestions.size()];
-        String[] Ans2List = new String[allQuestions.size()];
-
-        for(int i = 0;i<allQuestions.size();i++){
-            QuesList[i] = ((Question) allQuestions.elementAt(i)).getQuestion();
-            Ans1List[i] = ((Question) allQuestions.elementAt(i)).getAnswer1();
-            Ans2List[i] = ((Question) allQuestions.elementAt(i)).getAnswer2();
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, QuesList);
-        */
-
         ListView listView = (ListView) findViewById(R.id.listdata);
         QuestionAdapter adapter = new QuestionAdapter(this, allQuestions);
         listView.setAdapter(adapter);
