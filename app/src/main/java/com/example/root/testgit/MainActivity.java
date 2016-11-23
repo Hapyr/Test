@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity{
 
-    ArrayList<Question> allQuestions = new ArrayList();
+    ArrayList<Question> allQuestions = new ArrayList<Question>();
     public interface AsyncResponse {
         void processFinish(String output) throws JSONException;
     }
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity{
 
         FillQuestionArrayList();
         FillListView(allQuestions);
+
         ListView listView = (ListView) findViewById(R.id.listdata);
         QuestionAdapter adapter = new QuestionAdapter(this, allQuestions);
         listView.setAdapter(adapter);
@@ -45,10 +46,9 @@ public class MainActivity extends AppCompatActivity{
         // --- LOAD JSON STRING FROM SERVER and CONVERT to QUESTION VECTOR ---
         // --- STRING SAVED on 'gesammt' --- QUESTION VEC on 'allQuestion' ---
 
-        String whatver = "";
         JSONObject QuesData  = null;
         try {
-            QuesData = new JSONObject( whatver = vGetData(this.findViewById(R.id.activity_main).getRootView()));
+            QuesData = new JSONObject(  vGetData(this.findViewById(R.id.activity_main).getRootView()) );
             JSONArray result = QuesData.getJSONArray("server_response");
             String ques,ans1,ans2;
 
