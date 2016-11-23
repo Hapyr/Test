@@ -1,0 +1,40 @@
+package com.example.root.testgit;
+
+import java.util.ArrayList;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+/**
+ * Created by Luis on 23.11.2016.
+ */
+
+public class QuestionAdapter extends ArrayAdapter<Question> {
+
+    final Context context;
+    final ArrayList<Question> qList;
+
+    public QuestionAdapter(Context context, ArrayList<Question> qItems) {
+        super(context, R.layout.question_frame, qItems);
+        this.context = context;
+        this.qList = qItems;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parentList) {
+        LayoutInflater listInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View item = listInflater.inflate(R.layout.question_frame, parentList, false);
+
+        TextView qQuestion = (TextView) item.findViewById(R.id.qQuestion);
+        TextView qAnsLeft = (TextView) item.findViewById(R.id.qAnsLeft);
+        TextView qAnsRight = (TextView) item.findViewById(R.id.qAnsRight);
+        qQuestion.setText(this.qList.get(position).getQuestion());
+        qAnsLeft.setText(this.qList.get(position).getAnswer1());
+        qAnsRight.setText(this.qList.get(position).getAnswer2());
+
+        return item;
+    }
+}
