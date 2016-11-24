@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
         ListView listView = (ListView) findViewById(R.id.listdata);
         QuestionAdapter adapter = new QuestionAdapter(this, allQuestions);
         listView.setAdapter(adapter);
+
     }
 
     public void vSwitchToEdit(View view) {
