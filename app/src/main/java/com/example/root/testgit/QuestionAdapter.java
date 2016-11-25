@@ -14,7 +14,7 @@ import android.widget.TextView;
  * Created by Luis on 23.11.2016.
  */
 
-public class QuestionAdapter extends ArrayAdapter<Question> {
+class QuestionAdapter extends ArrayAdapter<Question> {
 
     final Context context;
     final ArrayList<Question> qList;
@@ -34,7 +34,7 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         TextView qAnsLeft = (TextView) item.findViewById(R.id.qAnsLeft);
         TextView qAnsRight = (TextView) item.findViewById(R.id.qAnsRight);
 
-       ProgressBar proBar = (ProgressBar) item.findViewById(R.id.progressBar);
+        ProgressBar proBar = (ProgressBar) item.findViewById(R.id.progressBar);
         int state = (int)(int)Math.round(Math.random() * (100 - 1)+ 1);
         proBar.setProgress(state);
 

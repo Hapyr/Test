@@ -17,12 +17,17 @@
         android:src="@android:drawable/ic_input_add"
         android:onClick="vSwitchToEdit"/>
 
-
-    <ListView
-        android:id="@+id/listdata"
-        android:layout_width="match_parent"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/createBtn" />
+        android:id="@+id/refreshWrapper">
 
+        <ListView
+            android:id="@+id/listdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/createBtn" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>
