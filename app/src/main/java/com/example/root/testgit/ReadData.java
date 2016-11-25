@@ -25,7 +25,7 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
     public MainActivity.AsyncResponse delegate = null; // --- Call back interface ---
 
     public ReadData(MainActivity.AsyncResponse asyncResponse) {
-        // --- Assigning call back interfacethrough constructor ---
+        // --- Assigning call back interface through constructor ---
         delegate = asyncResponse;
     }
 
@@ -34,7 +34,6 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
     @Override
     protected void onPreExecute() {
         connectUrl = "http://www.varbrooker-heide.de/get_question.php";
-
     }
 
     @Override

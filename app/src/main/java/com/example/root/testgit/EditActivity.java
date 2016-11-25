@@ -52,7 +52,8 @@ public class EditActivity extends AppCompatActivity {
                 Toast.makeText(EditActivity.this, "new data saved", Toast.LENGTH_LONG).show();
             }
         });
-        insert.execute(ques,ans1,ans2);
+        insert.execute(ques, ans1, ans2);
+        this.finish();
     }
     /// ------------------------------------------------------
 
