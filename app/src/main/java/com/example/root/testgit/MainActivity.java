@@ -110,24 +110,4 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         });
         return data.execute().get();
     }
-
-    // Not required anymore, self defined adapter ist set in onCreate method
-    public void FillListView(ArrayList<Question> quesArrayList){
-        // --- QUESTION LIST ARRAY to 3 STRINGS ---
-        String[] QuesList = new String[allQuestions.size()];
-        String[] Ans1List = new String[allQuestions.size()];
-        String[] Ans2List = new String[allQuestions.size()];
-
-        for(int i = 0;i<allQuestions.size();i++){
-            QuesList[i] = ((Question) allQuestions.get(i)).getQuestion();
-            Ans1List[i] = ((Question) allQuestions.get(i)).getAnswer1();
-            Ans2List[i] = ((Question) allQuestions.get(i)).getAnswer2();
-        }
-
-        ListView listView1 = (ListView) findViewById(R.id.listdata);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, QuesList);
-
-        listView1.setAdapter(adapter);
-    }
 }
