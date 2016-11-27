@@ -21,6 +21,7 @@ public class Question {
         this.question = ques;
         this.answer1 = ans1;
         this.answer2 = ans2;
+        this.id = 0;
     }
 
     public void displayQuestion()
