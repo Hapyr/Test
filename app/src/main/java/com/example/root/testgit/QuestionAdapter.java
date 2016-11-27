@@ -44,4 +44,9 @@ class QuestionAdapter extends ArrayAdapter<Question> {
 
         return item;
     }
+
+    @Override
+    public Question getItem(int position) {
+        return qList.get(position);
+    }
 }

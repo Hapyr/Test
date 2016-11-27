@@ -9,6 +9,7 @@ import static com.example.root.testgit.R.id.question;
 
 public class Question {
 
+    private int id;
     private String question;
     private String answer1, answer2;
     private String[] requestion;
@@ -32,6 +33,7 @@ public class Question {
     /// ------------------------------------------------------
     /// --------- GETer and SETer ----------------------------
     /// ------------------------------------------------------
+    public int getId() {return this.id; }
     public String getQuestion(){
         return this.question;
     }

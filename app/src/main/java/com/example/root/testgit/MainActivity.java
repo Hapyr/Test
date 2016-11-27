@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private ArrayList<Question> allQuestions;
     private SwipeRefreshLayout refreshLayout;
     private QuestionAdapter adapter;
+    public static String EXTRA_QUESTION_ID = "com.example.root.testgit.qID";
 
     public interface AsyncResponse {
         void processFinish(String output) throws JSONException;
@@ -34,9 +36,19 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         setContentView(R.layout.activity_main);
 
         allQuestions = new ArrayList<Question>();
-        ListView listView = (ListView) findViewById(R.id.listdata);
+        final ListView listView = (ListView) findViewById(R.id.listdata);
         adapter = new QuestionAdapter(this, allQuestions);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long j) {
+                Question qClicked = (Question) listView.getItemAtPosition(position);
+
+                Intent intent = new Intent(MainActivity.this, Stats.class);
+                intent.putExtra(EXTRA_QUESTION_ID, qClicked.getId());
+                startActivity(intent);
+            }
+        });
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshWrapper);
         refreshLayout.setOnRefreshListener(this);
