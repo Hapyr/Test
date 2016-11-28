@@ -30,11 +30,12 @@ class InsertData extends AsyncTask<String,Void,String> {
 
     @Override
     protected String doInBackground(String... args) {
-        String ques, ans1,ans2;
+        String ques, ans1,ans2,authorid, id;
         ques = args[0];
         ans1 = args[1];
         ans2 = args[2];
-
+        authorid = args[3];
+        id = args[4];
         try {
             URL url = new URL(connectUrl);
             HttpURLConnection UrlCon = (HttpURLConnection) url.openConnection();
@@ -46,6 +47,8 @@ class InsertData extends AsyncTask<String,Void,String> {
 
             String data_string = URLEncoder.encode("question","UTF-8") + "=" + URLEncoder.encode(ques,"UTF-8") + "&" +
                     URLEncoder.encode("answer_1","UTF-8") + "=" + URLEncoder.encode(ans1,"UTF-8") + "&" +
+                    URLEncoder.encode("authorid","UTF-8") + "=" + URLEncoder.encode(authorid,"UTF-8") + "&" +
+                    URLEncoder.encode("id","UTF-8") + "=" + URLEncoder.encode(id,"UTF-8") + "&" +
                     URLEncoder.encode("answer_2","UTF-8") + "=" + URLEncoder.encode(ans2,"UTF-8");
 
             BufWr.write(data_string);

@@ -36,7 +36,7 @@ class QuestionAdapter extends ArrayAdapter<Question> {
 
         ProgressBar proBar = (ProgressBar) item.findViewById(R.id.progressBar);
         int state = (int)(int)Math.round(Math.random() * (100 - 1)+ 1);
-        proBar.setProgress(state);
+        proBar.setProgress(getVoteState(position));
 
         qQuestion.setText(this.qList.get(position).getQuestion());
         qAnsLeft.setText(this.qList.get(position).getAnswer1());
@@ -44,6 +44,11 @@ class QuestionAdapter extends ArrayAdapter<Question> {
 
         return item;
     }
+
+    public int getVoteState(int position){
+        return (int)(100*((float)(this.qList.get(position).getPro()))/((float)(this.qList.get(position).getPro() + this.qList.get(position).getContra())));
+    }
+
 
     @Override
     public Question getItem(int position) {
