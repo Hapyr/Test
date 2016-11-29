@@ -8,10 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -24,10 +21,10 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+
     public String andID = "";
     public String countID = "";
-    public int ststststs = 0;
-    private ArrayList<Question> allQuestions;
+    public static ArrayList<Question> allQuestions;
     private SwipeRefreshLayout refreshLayout;
     private QuestionAdapter adapter;
     public static String EXTRA_QUESTION_ID = "com.example.root.testgit.qID";
@@ -40,11 +37,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
-
 
 
         SQLiteDatabase mydatabase = openOrCreateDatabase("user",MODE_PRIVATE,null);
@@ -63,12 +55,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         }
 
 
-
-
-
-
-
-
         allQuestions = new ArrayList<Question>();
         final ListView listView = (ListView) findViewById(R.id.listdata);
         adapter = new QuestionAdapter(this, allQuestions);
@@ -79,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 Question qClicked = (Question) listView.getItemAtPosition(position);
 
                 Intent intent = new Intent(MainActivity.this, Stats.class);
-                intent.putExtra(EXTRA_QUESTION_ID, qClicked.getID());
+                intent.putExtra(EXTRA_QUESTION_ID, position);
                 startActivity(intent);
             }
         });
@@ -159,9 +145,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             public void processFinish(String output) throws JSONException {
                 // --- After finish the execute this method will called ---
             }
+
         });
-        return data.execute().get();
+        data.setDatatype(DataType.Question);
+        return data.execute("","").get();
     }
+
     public String md5(String s) {
         try {
             // Create MD5 Hash

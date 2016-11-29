@@ -1,27 +1,27 @@
 package com.example.root.testgit;
 
 import android.os.AsyncTask;
-import android.text.Editable;
-import android.widget.TextView;
-
-import com.example.root.testgit.EditActivity;
-import com.example.root.testgit.R;
-
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Vector;
+import java.net.URLEncoder;
+
+enum DataType{Question,Comment}
 
 class ReadData extends AsyncTask<String,EditActivity,String> {
-    String connectUrl;
+
+    private String connectUrl;
+    private DataType datatype;
+    public StringBuilder StBu = new StringBuilder();
     public MainActivity.AsyncResponse delegate = null; // --- Call back interface ---
 
     public ReadData(MainActivity.AsyncResponse asyncResponse) {
@@ -29,21 +29,43 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
         delegate = asyncResponse;
     }
 
-    public StringBuilder StBu = new StringBuilder();
-
     @Override
     protected void onPreExecute() {
-        connectUrl = "http://www.varbrooker-heide.de/get_question.php";
+        if(this.datatype == DataType.Question){
+            connectUrl = "http://www.varbrooker-heide.de/get_question.php";
+        }
+        if(this.datatype == DataType.Comment){
+            connectUrl = "http://www.varbrooker-heide.de/get_comment.php";
+        }
     }
 
     @Override
     protected String doInBackground(String... args) {
         String JSON;
+        String author = args[0];
+        String id = args[1];
 
         try {
             URL url = new URL(connectUrl);
             HttpURLConnection UrlCon = (HttpURLConnection) url.openConnection();
 
+            if (datatype == DataType.Comment) {
+                UrlCon.setRequestMethod("POST");
+                UrlCon.setDoOutput(true);
+
+                OutputStream OutStr = UrlCon.getOutputStream();
+                BufferedWriter BufWr = new BufferedWriter(new OutputStreamWriter(OutStr, "UTF-8"));
+
+                String data_string = "";
+
+                data_string = URLEncoder.encode("author", "UTF-8") + "=" + URLEncoder.encode(author, "UTF-8") + "&" +
+                        URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
+
+                BufWr.write(data_string);
+                BufWr.flush();
+                BufWr.close();
+                OutStr.close();
+            }
             InputStream InSt = UrlCon.getInputStream();
             BufferedReader BufRe = new BufferedReader(new InputStreamReader(InSt));
 
@@ -79,5 +101,9 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setDatatype(DataType type){
+        this.datatype = type;
     }
 }
