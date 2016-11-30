@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">TestGit</string>
-    <string name="title_activity_play">PlayActivity</string>
+    <string name="app_name">AskMe</string>
 </resources>

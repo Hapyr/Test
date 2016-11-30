@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:weightSum="2"
     android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -19,7 +20,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="start"
             android:layout_margin="15dp"
             android:textSize="24sp"
             android:textColor="@color/colorText"
@@ -28,7 +29,8 @@
             android:textAlignment="viewStart" />
 
         <LinearLayout
-            android:orientation="vertical" android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_weight="90">
 

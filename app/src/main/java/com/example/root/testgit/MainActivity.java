@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             mydatabase.execSQL("INSERT INTO info (author_id,id) VALUES('" + andID + "','0');");
         }
 
-
         allQuestions = new ArrayList<Question>();
         final ListView listView = (ListView) findViewById(R.id.listdata);
         adapter = new QuestionAdapter(this, allQuestions);
