@@ -1,6 +1,5 @@
 package com.example.root.testgit;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,18 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.daimajia.swipe.SwipeLayout;
-
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -57,7 +45,7 @@ public class EditActivity extends AppCompatActivity {
     }
 
     /// ------------------------------------------------------
-    /// --------- LOAD and SEND DATA to SERVER ---------------
+    /// ------------- SEND DATA to SERVER --------------------
     /// ------------------------------------------------------
     public void vInsertData(View view)
     {
@@ -72,9 +60,9 @@ public class EditActivity extends AppCompatActivity {
                 Toast.makeText(EditActivity.this, "new data saved", Toast.LENGTH_LONG).show();
             }
         });
+        insert.setDataType(DataType.Question);
         insert.execute(ques, ans1, ans2, authorid, id);
         this.finish();
     }
     /// ------------------------------------------------------
-
 }

@@ -35,8 +35,8 @@ class QuestionAdapter extends ArrayAdapter<Question> {
         TextView qAnsRight = (TextView) item.findViewById(R.id.qAnsRight);
 
         ProgressBar proBar = (ProgressBar) item.findViewById(R.id.progressBar);
-        int state = (int)(int)Math.round(Math.random() * (100 - 1)+ 1);
         proBar.setProgress(getVoteState(position));
+        //proBar.setVisibility(View.INVISIBLE);
 
         qQuestion.setText(this.qList.get(position).getQuestion());
         qAnsLeft.setText(this.qList.get(position).getAnswer1());

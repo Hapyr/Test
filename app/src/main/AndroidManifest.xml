@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditActivity" />
-        <activity android:name=".Stats"></activity>
+        <activity android:name=".Stats" android:windowSoftInputMode="adjustPan">
+        </activity>
     </application>
 
 </manifest>
