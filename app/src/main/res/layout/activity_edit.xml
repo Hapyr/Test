@@ -53,7 +53,7 @@
         android:layout_below="@+id/editText3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="vGetData" />
+        android:onClick="vCloseActivity" />
 
     <Button
         android:text="Senden"

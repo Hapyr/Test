@@ -44,6 +44,10 @@ public class EditActivity extends AppCompatActivity {
         answer2 = (TextView) findViewById(R.id.editText3);
     }
 
+    public void vCloseActivity(View view) {
+        this.finish();
+    }
+
     /// ------------------------------------------------------
     /// ------------- SEND DATA to SERVER --------------------
     /// ------------------------------------------------------
