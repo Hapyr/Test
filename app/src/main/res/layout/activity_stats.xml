@@ -22,7 +22,8 @@
         <ListView
                 android:id="@+id/listdataComment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+            android:background="@color/colorPrimary" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <EditText

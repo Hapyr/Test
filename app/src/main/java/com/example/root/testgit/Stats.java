@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -67,6 +68,26 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
             @Override
             public void run() { updateList(); }
         });
+
+
+        // -----------------------------------------------------------------|
+        // ----------- Button Votes ----------------------------------------|
+        // -----------------------------------------------------------------.
+        Button proVote = (Button) QuestionsFrame.findViewById(R.id.button5);
+        proVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                ques.setVote(true);
+            }});
+        Button contraVote = (Button) QuestionsFrame.findViewById(R.id.button4);
+        contraVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                ques.setVote(false);
+            }});
+        // -----------------------------------------------------------------.
+        // -----------------------------------------------------------------|
+
     }
 
     @Override
