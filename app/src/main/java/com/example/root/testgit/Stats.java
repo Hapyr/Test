@@ -38,17 +38,19 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
-        questionField = (TextView) findViewById(R.id.qQues);
-        ansLeftField = (TextView) findViewById(R.id.qLeft);
-        ansRightField = (TextView) findViewById(R.id.qRight);
+        View QuestionsFrame = ((View) findViewById(R.id.quess));
+
+        questionField = (TextView) QuestionsFrame.findViewById(R.id.qQuestion);
+        ansLeftField = (TextView) QuestionsFrame.findViewById(R.id.qAnsLeft);
+        ansRightField = (TextView) QuestionsFrame.findViewById(R.id.qAnsRight);
 
         Intent intent = getIntent();
         int qId = intent.getIntExtra(MainActivity.EXTRA_QUESTION_ID, 2);
         ques = (Question) MainActivity.allQuestions.get(qId);
         author = ques.getAuthorID();
-        ((TextView) findViewById(R.id.qRight)).setText(ques.getAnswer2());
-        ((TextView) findViewById(R.id.qLeft)).setText(ques.getAnswer1());
-        ((TextView) findViewById(R.id.qQues)).setText(ques.getQuestion());
+        ((TextView) QuestionsFrame.findViewById(R.id.qAnsRight)).setText(ques.getAnswer2());
+        ((TextView) QuestionsFrame.findViewById(R.id.qAnsLeft)).setText(ques.getAnswer1());
+        ((TextView) QuestionsFrame.findViewById(R.id.qQuestion)).setText(ques.getQuestion());
 
         ((ProgressBar) findViewById(R.id.progressBar)).setProgress((int)(100*((float)(ques.getPro()))/((float)(ques.getPro() + ques.getContra()))));
 
