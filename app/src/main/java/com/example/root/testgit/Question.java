@@ -1,5 +1,8 @@
 package com.example.root.testgit;
 
+import android.view.View;
+import android.widget.Toast;
+
 import static android.R.attr.x;
 import static com.example.root.testgit.R.id.question;
 
@@ -11,7 +14,7 @@ public class Question {
 
     private String question;
     private String answer1, answer2, author_id;
-    private int pro, contra, weight, time, id;
+    private int pro, contra, time, id;
     private String[] requestion;
     private int yesVote,noVote;
     private int voteWeight;
@@ -26,6 +29,7 @@ public class Question {
         this.contra = contra;
         this.time = time;
         this.id = id;
+        this.voteWeight = weight;
     }
 
     public void displayQuestion()
@@ -35,7 +39,7 @@ public class Question {
         System.out.println("->Antwort 2: " + this.answer2);
         System.out.println("->Pro: " + this.pro);
         System.out.println("->Contra: " + this.contra);
-        System.out.println("->Weight: " + this.weight);
+        System.out.println("->Voteweight: " + this.voteWeight);
         System.out.println("->Time: " + this.time);
         System.out.println("->Author ID: " + this.author_id);
         System.out.println("->ID: " + this.id);
@@ -59,9 +63,6 @@ public class Question {
     public int getContra(){
         return this.contra;
     }
-    public int getWeight(){
-        return this.weight;
-    }
     public int getTime(){
         return this.time;
     }
@@ -82,6 +83,25 @@ public class Question {
     }
     public int getVoteWeight() {
         return this.voteWeight;
+    }
+
+    public void setVote(boolean vote){
+        if(vote == true){
+            this.voteWeight += 1;
+        }else{
+            this.voteWeight -= 1;
+        }
+        this.updateQuestion();
+    }
+    public void updateQuestion(){
+
+        InsertData insert = new InsertData(new EditActivity.AsyncResponse() {
+            @Override
+            public void processFinish(String output) {            }
+        });
+        insert.setDataType(DataType.Question);
+        insert.setUploadType(UploadType.Update);
+        insert.execute(this.getQuestion(), this.getAnswer1(), this.getAnswer2(), this.getAuthorID(), "" + this.getID(), "" + this.getPro(), "" + this.getContra(), "" + this.getVoteWeight());
     }
     /// ------------------------------------------------------
 }

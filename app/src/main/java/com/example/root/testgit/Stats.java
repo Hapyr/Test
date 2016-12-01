@@ -135,7 +135,8 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
             }
         });
         insert.setDataType(DataType.Comment);
-        insert.execute(com, author, ""+(ques.getID()),"","");
+        insert.setUploadType(UploadType.Insert);
+        insert.execute(com, author, ""+(ques.getID()),"","","","","");
         this.finish();
     }
 }

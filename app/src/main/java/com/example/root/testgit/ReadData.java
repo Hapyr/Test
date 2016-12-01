@@ -16,6 +16,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 enum DataType{Question,Comment}
+enum UploadType{Insert,Update}
 
 class ReadData extends AsyncTask<String,EditActivity,String> {
 

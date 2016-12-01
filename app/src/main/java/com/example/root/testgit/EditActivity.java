@@ -65,7 +65,8 @@ public class EditActivity extends AppCompatActivity {
             }
         });
         insert.setDataType(DataType.Question);
-        insert.execute(ques, ans1, ans2, authorid, id);
+        insert.setUploadType(UploadType.Insert);
+        insert.execute(ques, ans1, ans2, authorid, id, "1","1","0");
         this.finish();
     }
     /// ------------------------------------------------------

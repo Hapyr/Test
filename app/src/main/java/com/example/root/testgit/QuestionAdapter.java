@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -42,6 +43,29 @@ class QuestionAdapter extends ArrayAdapter<Question> {
         qAnsLeft.setText(this.qList.get(position).getAnswer1());
         qAnsRight.setText(this.qList.get(position).getAnswer2());
 
+
+        // -----------------------------------------------------------------|
+        // ----------- Button Votes ----------------------------------------|
+        // -----------------------------------------------------------------.
+        Button proVote = (Button) item.findViewById(R.id.button5);
+        proVote.setTag(position);
+        proVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                int pos = (Integer)arg0.getTag();
+                qList.get(pos).setVote(true);
+            }});
+        Button contraVote = (Button) item.findViewById(R.id.button4);
+        contraVote.setTag(position);
+        contraVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                int pos = (Integer)arg0.getTag();
+                qList.get(pos).setVote(false);
+            }});
+        // -----------------------------------------------------------------.
+        // -----------------------------------------------------------------|
+
         return item;
     }
 
@@ -54,4 +78,5 @@ class QuestionAdapter extends ArrayAdapter<Question> {
     public Question getItem(int position) {
         return qList.get(position);
     }
+
 }

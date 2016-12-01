@@ -18,6 +18,7 @@ class InsertData extends AsyncTask<String,Void,String> {
 
     String connectUrl;
     private DataType dataType;
+    private UploadType uploadType;
 
     public EditActivity.AsyncResponse delegate = null; // --- Call back interface ---
 
@@ -29,21 +30,35 @@ class InsertData extends AsyncTask<String,Void,String> {
     @Override
     protected void onPreExecute() {
         if (this.dataType == DataType.Question) {
-            connectUrl = "http://www.varbrooker-heide.de/add_question.php";
+            if(this.uploadType == UploadType.Insert) {
+                connectUrl = "http://www.varbrooker-heide.de/add_question.php";
+            }
+            if(this.uploadType == UploadType.Update) {
+                connectUrl = "http://www.varbrooker-heide.de/update_question.php";
+            }
         }
         if(this.dataType == DataType.Comment){
-            connectUrl = "http://www.varbrooker-heide.de/add_comment.php";
+            if(this.uploadType == UploadType.Insert) {
+                connectUrl = "http://www.varbrooker-heide.de/add_comment.php";
+            }
+            if(this.uploadType == UploadType.Update) {
+                connectUrl = "http://www.varbrooker-heide.de/add_comment.php";
+            }
         }
     }
 
     @Override
     protected String doInBackground(String... args) {
-        String ques, ans1,ans2,authorid, id;
+        String ques, ans1,ans2,authorid, id, pro, contra, weight;
         ques = args[0]; //also comment text
         ans1 = args[1]; //also authorid
         ans2 = args[2]; //also quesid
         authorid = args[3];
         id = args[4];
+        pro = args[5];
+        contra = args[6];
+        weight = args[7];
+
         try {
             URL url = new URL(connectUrl);
             HttpURLConnection UrlCon = (HttpURLConnection) url.openConnection();
@@ -59,7 +74,10 @@ class InsertData extends AsyncTask<String,Void,String> {
                         URLEncoder.encode("answer_1","UTF-8") + "=" + URLEncoder.encode(ans1,"UTF-8") + "&" +
                         URLEncoder.encode("authorid","UTF-8") + "=" + URLEncoder.encode(authorid,"UTF-8") + "&" +
                         URLEncoder.encode("id","UTF-8") + "=" + URLEncoder.encode(id,"UTF-8") + "&" +
-                        URLEncoder.encode("answer_2","UTF-8") + "=" + URLEncoder.encode(ans2,"UTF-8");
+                        URLEncoder.encode("answer_2","UTF-8") + "=" + URLEncoder.encode(ans2,"UTF-8") + "&" +
+                        URLEncoder.encode("pro","UTF-8") + "=" + URLEncoder.encode(pro,"UTF-8") + "&" +
+                        URLEncoder.encode("contra","UTF-8") + "=" + URLEncoder.encode(contra,"UTF-8") + "&" +
+                        URLEncoder.encode("weight","UTF-8") + "=" + URLEncoder.encode(weight,"UTF-8");
 
             BufWr.write(data_string);
             BufWr.flush();
@@ -95,5 +113,8 @@ class InsertData extends AsyncTask<String,Void,String> {
 
     public void setDataType(DataType type){
         this.dataType = type;
+    }
+    public void setUploadType(UploadType type) {
+        this.uploadType = type;
     }
 }
