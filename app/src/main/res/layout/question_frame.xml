@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="100"
-        android:clickable="true"
         android:layout_weight="2">
 
         <TextView
@@ -44,7 +43,8 @@
                 android:background="@color/clearWhite"
                 android:textAllCaps="false"
                 android:textColor="@color/colorLeft"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:focusable="false" />
 
             <Button
                 android:text="-"
@@ -57,7 +57,8 @@
                 android:background="@color/clearWhite"
                 android:textColor="@color/colorLeft"
                 android:textSize="24sp"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:focusable="false" />
         </LinearLayout>
 
     </LinearLayout>
@@ -67,7 +68,6 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:id="@+id/progressBar"
-        android:fadingEdge="horizontal"
         android:progressBackgroundTint="@color/ProgressBarBackground"
         android:progressTint="@color/ProgressBarStatus"
         android:progressDrawable="@android:drawable/progress_horizontal" />
@@ -77,7 +77,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:clickable="true"
         android:layout_weight="2">
 
         <TextView
