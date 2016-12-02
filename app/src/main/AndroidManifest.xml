@@ -18,9 +18,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditActivity" />
-        <activity android:name=".Stats" android:windowSoftInputMode="adjustPan">
-        </activity>
-    </application>
+        <activity
+            android:name=".EditActivity"
+            android:label="@string/edit_name"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Stats"
+            android:label="@string/stats_name"
+            android:windowSoftInputMode="adjustPan"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/profile_name"
+            android:parentActivityName=".MainActivity" />
 
+    </application>
 </manifest>
