@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AskMe</string>
+    <string name="app_name" translatable="false">AskMe</string>
     <string name="edit_name">Neue Frage</string>
     <string name="stats_name">Übersicht</string>
     <string name="profile_name">Profil</string>

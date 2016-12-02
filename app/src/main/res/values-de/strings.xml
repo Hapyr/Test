@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AskMe</string>
+    <string name="edit_name">Neue Frage</string>
+    <string name="profile_name">Profil</string>
+    <string name="stats_name">Übersicht</string>
+</resources>
