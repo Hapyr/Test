@@ -1,5 +1,6 @@
 package com.example.root.testgit;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import org.json.JSONException;
 
@@ -22,12 +23,14 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
 
     private String connectUrl;
     private DataType datatype;
+    private Context appContext;     // Um auf die Eigenschaften der MainActivity zuzugreifen
     public StringBuilder StBu = new StringBuilder();
     public MainActivity.AsyncResponse delegate = null; // --- Call back interface ---
 
-    public ReadData(MainActivity.AsyncResponse asyncResponse) {
+    public ReadData(MainActivity.AsyncResponse asyncResponse, Context context) {
         // --- Assigning call back interface through constructor ---
         delegate = asyncResponse;
+        this.appContext = context;
     }
 
     @Override

@@ -66,7 +66,7 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
         // Refresh on create
         refreshLayout.post(new Runnable() {
             @Override
-            public void run() { updateList(); }
+            public void run() { refreshLayout.setRefreshing(true); updateList(); }
         });
 
 
@@ -141,7 +141,7 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
             public void processFinish(String output) throws JSONException {
                 // --- After finish the execute this method will called ---
             }
-        });
+        }, this);
         data.setDatatype(DataType.Comment);
         return data.execute("" + ques.getAuthorID(), "" + ques.getID()).get();
     }

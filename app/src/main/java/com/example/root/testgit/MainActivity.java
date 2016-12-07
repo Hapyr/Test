@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -74,8 +76,16 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         // Refresh on create
         refreshLayout.post(new Runnable() {
             @Override
-            public void run() { updateList(); }
+            public void run() { refreshLayout.setRefreshing(true); updateList(); }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -84,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         refreshLayout.setRefreshing(false);
     }
 
+    // dies muss asynchron geschehen! --> Verschiebung in einen AsynchronTask (ReadData)
     private void updateList() {
         try {
             FillQuestionArrayList();
@@ -145,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 // --- After finish the execute this method will called ---
             }
 
-        });
+        }, this);
         data.setDatatype(DataType.Question);
         return data.execute("","").get();
     }
