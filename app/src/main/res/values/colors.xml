@@ -8,5 +8,5 @@
     <color name="colorRight">#999999</color>
     <color name="ProgressBarStatus">#a7e8ff</color>
     <color name="ProgressBarBackground">#ff8a8c</color>
-    <color name="clearWhite">#00ffffff</color>
+    <color name="clearWhite">#FFFFFF</color>
 </resources>
