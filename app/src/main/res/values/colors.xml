@@ -6,7 +6,7 @@
     <color name="colorText">#000000</color>
     <color name="colorLeft">#999999</color>
     <color name="colorRight">#999999</color>
-    <color name="ProgressBarStatus">#a7e8ff</color>
-    <color name="ProgressBarBackground">#ff8a8c</color>
-    <color name="clearWhite">#FFFFFF</color>
+    <color name="ProgressBarStatus">#A7E8FF</color>
+    <color name="ProgressBarBackground">#FF8A8C</color>
+    <color name="clearWhite">#00FFFFFF</color>
 </resources>
