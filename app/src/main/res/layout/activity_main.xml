@@ -15,7 +15,6 @@
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
-
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,15 +30,16 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/refreshWrapper">
+        android:id="@+id/refreshWrapper"
+        android:clickable="true"
+        android:layout_below="@+id/toolbar">
 
         <ListView
             android:id="@+id/listdata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:layout_alignBottom="@+id/createBtn"
-            android:layout_marginTop="4dp"/>
+            android:layout_alignBottom="@+id/createBtn"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

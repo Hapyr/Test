@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         // Refresh on create
         refreshLayout.post(new Runnable() {
             @Override
-            public void run() { refreshLayout.setRefreshing(true); updateList(); }
+            public void run() { refreshLayout.setRefreshing(false); updateList(); }
         });
     }
 
@@ -103,35 +103,17 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         return true;
     }
 
-    @Override
-    public void onRefresh() {
-        updateList();
-        refreshLayout.setRefreshing(false);
-    }
 
-    // dies muss asynchron geschehen! --> Verschiebung in einen AsynchronTask (ReadData)
-    private void updateList() {
-        try {
-            FillQuestionArrayList();
-            adapter.notifyDataSetChanged();
-            Toast.makeText(getApplicationContext(), "Erfolgreich aktualisiert", Toast.LENGTH_LONG).show();
-        } catch (ExecutionException e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (JSONException e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
+
+    void vote(boolean value) {
+        if(value == true){
+            // --- left vote ---
+        }else{
+            // --- right vote ---
         }
     }
 
-    public void vSwitchToEdit(View view) {
 
-        Intent showCreate = new Intent(this, EditActivity.class);
-        startActivity(showCreate);
-    }
 
     // --- with vGetData - LOAD ALL DATA from SERVER and SAVE in 'allQuestions' ---
     public void FillQuestionArrayList() throws ExecutionException, InterruptedException, JSONException {
@@ -193,5 +175,35 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             e.printStackTrace();
         }
         return "";
+    }
+
+    @Override
+    public void onRefresh() {
+        updateList();
+        refreshLayout.setRefreshing(false);
+    }
+
+    // dies muss asynchron geschehen! --> Verschiebung in einen AsynchronTask (ReadData)
+    private void updateList() {
+        try {
+            FillQuestionArrayList();
+            adapter.notifyDataSetChanged();
+            //Toast.makeText(getApplicationContext(), "Erfolgreich aktualisiert", Toast.LENGTH_LONG).show();
+        } catch (ExecutionException e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        } catch (JSONException e) {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    public void vSwitchToEdit(View view) {
+
+        Intent showCreate = new Intent(this, EditActivity.class);
+        startActivity(showCreate);
     }
 }

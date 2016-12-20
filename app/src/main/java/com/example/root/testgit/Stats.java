@@ -66,7 +66,7 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
         // Refresh on create
         refreshLayout.post(new Runnable() {
             @Override
-            public void run() { refreshLayout.setRefreshing(true); updateList(); }
+            public void run() { refreshLayout.setRefreshing(false); updateList(); }
         });
 
 
@@ -100,7 +100,7 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
         try {
             FillCommentArrayList();
             adapter.notifyDataSetChanged();
-            Toast.makeText(getApplicationContext(), "Erfolgreich aktualisiert", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Erfolgreich aktualisiert", Toast.LENGTH_LONG).show();
         } catch (ExecutionException e) {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
@@ -148,18 +148,22 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
 
     public void vSendComment(View view){
         TextView comment = (TextView) findViewById(R.id.editText);
+        ListView comcom = (ListView) findViewById(R.id.listdataComment);
         String com = comment.getText().toString();
 
         InsertData insert = new InsertData(new EditActivity.AsyncResponse() {
             @Override
             public void processFinish(String output) {
                 // --- After finish the execute this Mothode will called ---
-                Toast.makeText(Stats.this, "Kommentar gespeichert!", Toast.LENGTH_LONG).show();
+                Toast.makeText(Stats.this, "Kommentar hinzugefügt!", Toast.LENGTH_LONG).show();
             }
         });
         insert.setDataType(DataType.Comment);
         insert.setUploadType(UploadType.Insert);
         insert.execute(com, author, ""+(ques.getID()),"","","","","");
-        this.finish();
+        comment.setText("");
+        onRefresh();
+
+        comcom.smoothScrollToPosition(comcom.getCount() - 1);
     }
 }

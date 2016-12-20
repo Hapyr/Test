@@ -15,6 +15,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
+
+import static java.net.InetAddress.getLocalHost;
 
 enum DataType{Question,Comment}
 enum UploadType{Insert,Update}
@@ -36,10 +39,13 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
     @Override
     protected void onPreExecute() {
         if(this.datatype == DataType.Question){
-            connectUrl = "http://www.varbrooker-heide.de/get_question.php";
+            connectUrl = "http://askm3.ddns.net/askm3/get/get_question.php";
+            //connectUrl = "http://127.0.0.1/askm3/get_question.php";
         }
         if(this.datatype == DataType.Comment){
-            connectUrl = "http://www.varbrooker-heide.de/get_comment.php";
+            connectUrl = "http://askm3.ddns.net/askm3/get/get_comment.php";
+
+            //connectUrl = "http://127.0.0.1/askm3/get_comment.php";
         }
     }
 

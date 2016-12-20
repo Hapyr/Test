@@ -5,47 +5,52 @@
     android:weightSum="2"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <include  layout="@layout/question_frame" android:id="@+id/quess" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2">
+        android:orientation="vertical" >
+
+        <include  layout="@layout/question_frame" android:id="@+id/quess"
+            android:layout_width="match_parent" />
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="wrap_content"
-            android:layout_height="229dp"
             android:id="@+id/refreshWrapperStats"
-            android:layout_weight="2.77">
+            android:layout_weight="2.77"
+            android:layout_height="200dp">
 
         <ListView
                 android:id="@+id/listdataComment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
             android:background="@color/colorPrimary" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/editText"
-            android:layout_below="@+id/question"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            tools:text="Comment this shit"
-            android:layout_weight="2.77" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
-        <Button
-            android:text="Comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button3"
-            android:layout_weight="2.77"
-            android:onClick="vSendComment"/>
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/editText"
+                android:layout_below="@+id/question"
+                tools:text="Comment this shit"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:id="@+id/button3"
+                android:src="@android:drawable/ic_menu_send"
+                android:onClick="vSendComment"
+                android:layout_weight="1" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
