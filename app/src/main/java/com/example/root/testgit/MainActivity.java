@@ -25,7 +25,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends ReadingView implements SwipeRefreshLayout.OnRefreshListener {
 
     public String andID = "";
     public String countID = "";
@@ -33,10 +33,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private SwipeRefreshLayout refreshLayout;
     private QuestionAdapter adapter;
     public static String EXTRA_QUESTION_ID = "com.example.root.testgit.qID";
-
-    public interface AsyncResponse {
-        void processFinish(String output) throws JSONException;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +74,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshWrapper);
         refreshLayout.setOnRefreshListener(this);
-        // Refresh on create
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run() { refreshLayout.setRefreshing(false); updateList(); }
-        });
+        updateList();
     }
 
     @Override
@@ -113,16 +105,14 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         }
     }
 
+    @Override
+    protected void updateList() {
+        ReadData data = new ReadData(this, DataType.Question);
+        data.execute("","");
+    }
 
-
-    // --- with vGetData - LOAD ALL DATA from SERVER and SAVE in 'allQuestions' ---
-    public void FillQuestionArrayList() throws ExecutionException, InterruptedException, JSONException {
-        // --- LOAD JSON STRING FROM SERVER and CONVERT to QUESTION VECTOR ---
-        // --- STRING SAVED on 'gesamt' --- QUESTION VEC on 'allQuestion' ---
-
-        JSONObject QuesData;
-
-        QuesData = new JSONObject(  vGetData(this.findViewById(R.id.activity_main).getRootView()) );
+    @Override
+    public void fillListView(JSONObject QuesData) throws ExecutionException, InterruptedException, JSONException {
         JSONArray result = QuesData.getJSONArray("server_response");
         String ques, ans1, ans2, pro, contra, weight, authorid, id, time;
 
@@ -144,18 +134,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             // --- test ausgabe eines elementes aus allQuestions ---
             //((Question) (allQuestions.elementAt(i))).displayQuestion();
         }
-    }
 
-    public String vGetData(View view) throws ExecutionException, InterruptedException {
-        ReadData data = new ReadData(new AsyncResponse() {
-            @Override
-            public void processFinish(String output) throws JSONException {
-                // --- After finish the execute this method will called ---
-            }
-
-        }, this);
-        data.setDatatype(DataType.Question);
-        return data.execute("","").get();
+        adapter.notifyDataSetChanged();
+        refreshLayout.setRefreshing(false);
     }
 
     public String md5(String s) {
@@ -180,25 +161,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     public void onRefresh() {
         updateList();
-        refreshLayout.setRefreshing(false);
-    }
-
-    // dies muss asynchron geschehen! --> Verschiebung in einen AsynchronTask (ReadData)
-    private void updateList() {
-        try {
-            FillQuestionArrayList();
-            adapter.notifyDataSetChanged();
-            //Toast.makeText(getApplicationContext(), "Erfolgreich aktualisiert", Toast.LENGTH_LONG).show();
-        } catch (ExecutionException e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (JSONException e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
     }
 
     public void vSwitchToEdit(View view) {

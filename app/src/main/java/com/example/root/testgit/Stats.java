@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 
 import static android.R.attr.author;
 
-public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class Stats extends ReadingView implements SwipeRefreshLayout.OnRefreshListener {
 
     private TextView questionField, ansLeftField, ansRightField;
     private ProgressBar progress;
@@ -29,10 +29,6 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
     private String author;
     public static ArrayList<Comment> allComments;
     private SwipeRefreshLayout refreshLayout;
-
-    public interface AsyncResponse {
-        void processFinish(String output) throws JSONException;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +43,7 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
 
         Intent intent = getIntent();
         int qId = intent.getIntExtra(MainActivity.EXTRA_QUESTION_ID, 2);
-        ques = (Question) MainActivity.allQuestions.get(qId);
+        ques = MainActivity.allQuestions.get(qId);
         author = ques.getAuthorID();
         ((TextView) QuestionsFrame.findViewById(R.id.qAnsRight)).setText(ques.getAnswer2());
         ((TextView) QuestionsFrame.findViewById(R.id.qAnsLeft)).setText(ques.getAnswer1());
@@ -64,10 +60,7 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshWrapperStats);
         refreshLayout.setOnRefreshListener(this);
         // Refresh on create
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run() { refreshLayout.setRefreshing(false); updateList(); }
-        });
+        updateList();
 
 
         // -----------------------------------------------------------------|
@@ -93,33 +86,17 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
     @Override
     public void onRefresh() {
         updateList();
-        refreshLayout.setRefreshing(false);
     }
 
-    private void updateList() {
-        try {
-            FillCommentArrayList();
-            adapter.notifyDataSetChanged();
-            //Toast.makeText(getApplicationContext(), "Erfolgreich aktualisiert", Toast.LENGTH_LONG).show();
-        } catch (ExecutionException e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } catch (JSONException e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        }
+    @Override
+    protected void updateList() {
+        ReadData data = new ReadData(this, DataType.Comment);
+        data.execute("","");
     }
 
-
-    public void FillCommentArrayList() throws ExecutionException, InterruptedException, JSONException {
-        // --- LOAD JSON STRING FROM SERVER and CONVERT to QUESTION VECTOR ---
-        // --- STRING SAVED on 'gesamt' --- QUESTION VEC on 'allQuestion' ---
-        JSONObject CommentData;
-        CommentData = new JSONObject(  vGetData(this.findViewById(R.id.listdataComment).getRootView()) );
-        JSONArray result = CommentData.getJSONArray("server_response");
+    @Override
+    public void fillListView(JSONObject commentData) throws ExecutionException, InterruptedException, JSONException {
+        JSONArray result = commentData.getJSONArray("server_response");
         String text, author, id;
         int time;
 
@@ -133,16 +110,13 @@ public class Stats extends AppCompatActivity implements SwipeRefreshLayout.OnRef
 
             allComments.add(new Comment(text, author, id, time));
         }
+
+        adapter.notifyDataSetChanged();
+        refreshLayout.setRefreshing(false);
     }
 
     public String vGetData(View view) throws ExecutionException, InterruptedException {
-        ReadData data = new ReadData(new MainActivity.AsyncResponse() {
-            @Override
-            public void processFinish(String output) throws JSONException {
-                // --- After finish the execute this method will called ---
-            }
-        }, this);
-        data.setDatatype(DataType.Comment);
+        ReadData data = new ReadData(this, DataType.Comment);
         return data.execute("" + ques.getAuthorID(), "" + ques.getID()).get();
     }
 

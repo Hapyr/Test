@@ -2,7 +2,11 @@ package com.example.root.testgit;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.RequiresPermission;
+import android.widget.Toast;
+
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.util.concurrent.ExecutionException;
 
 import static java.net.InetAddress.getLocalHost;
 
@@ -26,14 +31,12 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
 
     private String connectUrl;
     private DataType datatype;
-    private Context appContext;     // Um auf die Eigenschaften der MainActivity zuzugreifen
+    private ReadingView appContext;     // Um auf die Eigenschaften der MainActivity zuzugreifen
     public StringBuilder StBu = new StringBuilder();
-    public MainActivity.AsyncResponse delegate = null; // --- Call back interface ---
 
-    public ReadData(MainActivity.AsyncResponse asyncResponse, Context context) {
-        // --- Assigning call back interface through constructor ---
-        delegate = asyncResponse;
+    public ReadData(ReadingView context, DataType datatype) {
         this.appContext = context;
+        this.datatype = datatype;
     }
 
     @Override
@@ -105,15 +108,23 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
 
     @Override
     protected void onPostExecute(String result) {
-        super.onPostExecute(result);
+        if (result == "fail") {
+            Toast.makeText(appContext, "Vebindung fehlgeschlagen", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         try {
-            delegate.processFinish(result);
+            JSONObject newData = new JSONObject(result);
+            appContext.fillListView(newData);
         } catch (JSONException e) {
+            Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
-    }
-
-    public void setDatatype(DataType type){
-        this.datatype = type;
     }
 }
