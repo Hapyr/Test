@@ -59,15 +59,7 @@ public class EditActivity extends AppCompatActivity {
         String ans1 = answer1.getText().toString();
         String ans2 = answer2.getText().toString();
 
-        InsertData insert = new InsertData(new AsyncResponse() {
-            @Override
-            public void processFinish(String output) {
-                // --- After finish the execute this Mothode will called ---
-                //Toast.makeText(EditActivity.this, "new data saved", Toast.LENGTH_LONG).show();
-            }
-        });
-        insert.setDataType(DataType.Question);
-        insert.setUploadType(UploadType.Insert);
+        InsertData insert = new InsertData(this, DataType.Question, UploadType.Insert);
         insert.execute(ques, ans1, ans2, authorid, id, "1","1","0");
         this.finish();
     }

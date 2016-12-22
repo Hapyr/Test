@@ -14,6 +14,6 @@ import java.util.concurrent.ExecutionException;
 public abstract class ReadingView extends AppCompatActivity {
 
     public abstract void fillListView(JSONObject listData) throws ExecutionException, InterruptedException, JSONException;
-    protected abstract void updateList();
+    public abstract void updateList();
 
 }

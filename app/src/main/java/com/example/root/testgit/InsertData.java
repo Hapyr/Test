@@ -1,6 +1,12 @@
 package com.example.root.testgit;
 
 import android.os.AsyncTask;
+import android.support.v4.widget.TextViewCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -19,12 +25,12 @@ class InsertData extends AsyncTask<String,Void,String> {
     String connectUrl;
     private DataType dataType;
     private UploadType uploadType;
+    private AppCompatActivity callingAct;
 
-    public EditActivity.AsyncResponse delegate = null; // --- Call back interface ---
-
-    public InsertData(EditActivity.AsyncResponse asyncResponse) {
-        // --- Assigning call back interfacethrough constructor ---
-        delegate = asyncResponse;
+    public InsertData(AppCompatActivity callingAct, DataType dataType, UploadType uploadType) {
+        this.callingAct = callingAct;
+        this.dataType = dataType;
+        this.uploadType = uploadType;
     }
 
     @Override
@@ -88,13 +94,13 @@ class InsertData extends AsyncTask<String,Void,String> {
             inStr.close();
             UrlCon.disconnect();
 
-            return "Data saved!";
+            return "success";
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "Something went wrong!";
+        return "fail";
     }
 
     @Override
@@ -104,17 +110,10 @@ class InsertData extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result) {
-        try {
-            delegate.processFinish(result);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (result == "fail") {
+            Toast.makeText(callingAct, "Fehler beim Eintragen", Toast.LENGTH_SHORT);
+        } else {
+            Toast.makeText(callingAct, "Frage wurde gestellt..", Toast.LENGTH_SHORT);
         }
-    }
-
-    public void setDataType(DataType type){
-        this.dataType = type;
-    }
-    public void setUploadType(UploadType type) {
-        this.uploadType = type;
     }
 }

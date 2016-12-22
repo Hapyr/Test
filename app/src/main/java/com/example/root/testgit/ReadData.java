@@ -31,7 +31,7 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
 
     private String connectUrl;
     private DataType datatype;
-    private ReadingView appContext;     // Um auf die Eigenschaften der MainActivity zuzugreifen
+    private ReadingView appContext;     // Um auf die Eigenschaften der Activity zuzugreifen
     public StringBuilder StBu = new StringBuilder();
 
     public ReadData(ReadingView context, DataType datatype) {

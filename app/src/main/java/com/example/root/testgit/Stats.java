@@ -89,7 +89,7 @@ public class Stats extends ReadingView implements SwipeRefreshLayout.OnRefreshLi
     }
 
     @Override
-    protected void updateList() {
+    public void updateList() {
         ReadData data = new ReadData(this, DataType.Comment);
         data.execute("","");
     }
@@ -115,29 +115,14 @@ public class Stats extends ReadingView implements SwipeRefreshLayout.OnRefreshLi
         refreshLayout.setRefreshing(false);
     }
 
-    public String vGetData(View view) throws ExecutionException, InterruptedException {
-        ReadData data = new ReadData(this, DataType.Comment);
-        return data.execute("" + ques.getAuthorID(), "" + ques.getID()).get();
-    }
-
     public void vSendComment(View view){
         TextView comment = (TextView) findViewById(R.id.editText);
         ListView comcom = (ListView) findViewById(R.id.listdataComment);
         String com = comment.getText().toString();
 
-        InsertData insert = new InsertData(new EditActivity.AsyncResponse() {
-            @Override
-            public void processFinish(String output) {
-                // --- After finish the execute this Mothode will called ---
-                Toast.makeText(Stats.this, "Kommentar hinzugefügt!", Toast.LENGTH_LONG).show();
-            }
-        });
-        insert.setDataType(DataType.Comment);
-        insert.setUploadType(UploadType.Insert);
+        InsertData insert = new InsertData(this, DataType.Comment, UploadType.Insert);
         insert.execute(com, author, ""+(ques.getID()),"","","","","");
-        comment.setText("");
-        onRefresh();
 
-        comcom.smoothScrollToPosition(comcom.getCount() - 1);
+        comment.setText("");
     }
 }

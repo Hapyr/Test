@@ -106,7 +106,7 @@ public class MainActivity extends ReadingView implements SwipeRefreshLayout.OnRe
     }
 
     @Override
-    protected void updateList() {
+    public void updateList() {
         ReadData data = new ReadData(this, DataType.Question);
         data.execute("","");
     }

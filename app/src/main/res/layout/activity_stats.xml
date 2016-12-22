@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <include  layout="@layout/question_frame" android:id="@+id/quess"
-            android:layout_width="match_parent" />
+        <include layout="@layout/question_frame" android:id="@+id/quess" />
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="wrap_content"

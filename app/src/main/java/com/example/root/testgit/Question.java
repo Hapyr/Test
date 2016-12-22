@@ -95,13 +95,8 @@ public class Question {
     }
     public void updateQuestion(){
 
-        InsertData insert = new InsertData(new EditActivity.AsyncResponse() {
-            @Override
-            public void processFinish(String output) {            }
-        });
-        insert.setDataType(DataType.Question);
-        insert.setUploadType(UploadType.Update);
-        insert.execute(this.getQuestion(), this.getAnswer1(), this.getAnswer2(), this.getAuthorID(), "" + this.getID(), "" + this.getPro(), "" + this.getContra(), "" + this.getVoteWeight());
+   //     InsertData insert = new InsertData((ReadingView) MainActivity.class, DataType.Question, UploadType.Update);
+   //     insert.execute(getApplicationContext(), this.getQuestion(), this.getAnswer1(), this.getAnswer2(), this.getAuthorID(), "" + this.getID(), "" + this.getPro(), "" + this.getContra(), "" + this.getVoteWeight());
     }
     /// ------------------------------------------------------
 }
