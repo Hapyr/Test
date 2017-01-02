@@ -3,7 +3,9 @@ package com.example.root.testgit;
 import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -66,6 +68,42 @@ class QuestionAdapter extends ArrayAdapter<Question> {
         // -----------------------------------------------------------------.
         // -----------------------------------------------------------------|
 
+
+        item.setOnTouchListener(new View.OnTouchListener() {
+            private int distance;
+            private int startX;
+            private int currentX;
+            private RecyclerView.ViewHolder holder;
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    startX = (int) motionEvent.getX();
+                    currentX = startX;
+                    distance = 0;
+                    holder = (RecyclerView.ViewHolder) view.getTag();
+                }
+                else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                    currentX = (int) motionEvent.getX();
+                    distance = currentX - startX;
+                }
+                else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                    distance = 0;
+                }
+
+                if (distance > 300) {
+                    distance = 0;
+                    view.setBackgroundResource(R.color.ProgressBarBackground);
+                } else if (distance < -300) {
+                    distance = 0;
+                    view.setBackgroundResource(R.color.ProgressBarStatus);
+                }
+
+                view.setPadding(distance, 0, -1*distance, 0);
+
+                return true;
+            }
+        });
         return item;
     }
 
