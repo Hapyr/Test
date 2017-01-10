@@ -1,8 +1,7 @@
 package com.example.root.testgit;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.support.annotation.RequiresPermission;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -19,10 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.net.UnknownHostException;
 import java.util.concurrent.ExecutionException;
-
-import static java.net.InetAddress.getLocalHost;
 
 enum DataType{Question,Comment}
 enum UploadType{Insert,Update}
@@ -110,21 +106,27 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
     protected void onPostExecute(String result) {
         if (result == "fail") {
             Toast.makeText(appContext, "Vebindung fehlgeschlagen", Toast.LENGTH_LONG).show();
+            appContext.setRefreshing(false);
             return;
         }
 
         try {
             JSONObject newData = new JSONObject(result);
             appContext.fillListView(newData);
+            return;
         } catch (JSONException e) {
-            Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, "Ungültige Daten", Toast.LENGTH_LONG).show();
+            Log.d("Test", result);
+            //Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         } catch (ExecutionException e) {
             Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         } catch (InterruptedException e) {
-            Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext, "Anfrage konnte nicht beendet werden", Toast.LENGTH_LONG).show();
+            //Toast.makeText(appContext, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+        appContext.setRefreshing(false);
     }
 }

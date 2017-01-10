@@ -95,7 +95,10 @@ public class MainActivity extends ReadingView implements SwipeRefreshLayout.OnRe
         return true;
     }
 
-
+    @Override
+    public void setRefreshing(boolean refresh) {
+        refreshLayout.setRefreshing(refresh);
+    }
 
     void vote(boolean value) {
         if(value == true){
@@ -135,8 +138,8 @@ public class MainActivity extends ReadingView implements SwipeRefreshLayout.OnRe
             //((Question) (allQuestions.elementAt(i))).displayQuestion();
         }
 
+        setRefreshing(false);
         adapter.notifyDataSetChanged();
-        refreshLayout.setRefreshing(false);
     }
 
     public String md5(String s) {

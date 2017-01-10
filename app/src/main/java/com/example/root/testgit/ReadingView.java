@@ -15,5 +15,5 @@ public abstract class ReadingView extends AppCompatActivity {
 
     public abstract void fillListView(JSONObject listData) throws ExecutionException, InterruptedException, JSONException;
     public abstract void updateList();
-
+    public abstract void setRefreshing(boolean refresh);
 }

@@ -95,6 +95,11 @@ public class Stats extends ReadingView implements SwipeRefreshLayout.OnRefreshLi
     }
 
     @Override
+    public void setRefreshing(boolean refresh) {
+        refreshLayout.setRefreshing(refresh);
+    }
+
+    @Override
     public void fillListView(JSONObject commentData) throws ExecutionException, InterruptedException, JSONException {
         JSONArray result = commentData.getJSONArray("server_response");
         String text, author, id;
@@ -112,7 +117,7 @@ public class Stats extends ReadingView implements SwipeRefreshLayout.OnRefreshLi
         }
 
         adapter.notifyDataSetChanged();
-        refreshLayout.setRefreshing(false);
+        setRefreshing(false);
     }
 
     public void vSendComment(View view){
