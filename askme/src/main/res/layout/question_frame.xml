@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="2"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_margin="15dp"
+            android:textSize="24sp"
+            android:textColor="@color/colorText"
+            android:id="@+id/qQuestion"
+            android:layout_weight="10"
+            android:textAlignment="viewStart" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="90">
+
+            <Button
+                android:text="+"
+                android:layout_width="35dp"
+                android:layout_height="10dp"
+                android:layout_margin="0dp"
+                android:id="@+id/button5"
+                android:layout_weight="20"
+                android:background="@color/clearWhite"
+                android:textAllCaps="false"
+                android:textColor="@color/colorLeft"
+                android:textSize="24sp"
+                android:focusable="false" />
+
+            <Button
+                android:text="-"
+                android:layout_width="35dp"
+                android:layout_height="10dp"
+                android:id="@+id/button4"
+                android:maxHeight="5dp"
+                android:minHeight="5dp"
+                android:layout_weight="20"
+                android:background="@color/clearWhite"
+                android:textColor="@color/colorLeft"
+                android:textSize="24sp"
+                android:textAllCaps="false"
+                android:focusable="false" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ProgressBar
+        style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:id="@+id/progressBar"
+        android:progressBackgroundTint="@color/ProgressBarBackground"
+        android:progressTint="@color/ProgressBarStatus"
+        android:progressDrawable="@android:drawable/progress_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/qQuestion"
+            android:layout_alignParentStart="true"
+            android:layout_margin="20dp"
+            android:textSize="22sp"
+            android:textColor="@color/colorLeft"
+            android:id="@+id/qAnsLeft"
+            android:layout_weight="1"
+            android:textAlignment="viewStart" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/qQuestion"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="20dp"
+            android:textSize="22sp"
+            android:textColor="@color/colorRight"
+            android:id="@+id/qAnsRight"
+            android:layout_weight="1"
+            android:textAlignment="viewEnd" />
+
+    </LinearLayout>
+
+</LinearLayout>
