@@ -31,18 +31,18 @@ class InsertData extends AsyncTask<String,Void,String> {
     protected void onPreExecute() {
         if (this.dataType == DataType.Question) {
             if(this.uploadType == UploadType.Insert) {
-                connectUrl = "http://askm3.ddns.net/askm3/add/add_question.php";
+                connectUrl = "http://app.webclient5.de/add/add_question.php";
             }
             if(this.uploadType == UploadType.Update) {
-                connectUrl = "http://askm3.ddns.net/askm3/update/update_question.php";
+                connectUrl = "http://app.webclient5.de/update/update_question.php";
             }
         }
         if(this.dataType == DataType.Comment){
             if(this.uploadType == UploadType.Insert) {
-                connectUrl = "http://askm3.ddns.net/askm3/add/add_comment.php";
+                connectUrl = "http://app.webclient5.de/add/add_comment.php";
             }
             if(this.uploadType == UploadType.Update) {
-                connectUrl = "http://askm3.ddns.net/askm3/add/add_comment.php";
+                connectUrl = "http://app.webclient5.de/add/add_comment.php";
             }
         }
     }

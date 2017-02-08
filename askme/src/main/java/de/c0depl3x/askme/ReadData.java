@@ -39,11 +39,11 @@ class ReadData extends AsyncTask<String,EditActivity,String> {
     @Override
     protected void onPreExecute() {
         if(this.datatype == DataType.Question){
-            connectUrl = "http://askm3.ddns.net/askm3/get/get_question.php";
+            connectUrl = "http://app.webclient5.de/get/get_question.php";
             //connectUrl = "http://127.0.0.1/askm3/get_question.php";
         }
         if(this.datatype == DataType.Comment){
-            connectUrl = "http://askm3.ddns.net/askm3/get/get_comment.php";
+            connectUrl = "http://app.webclient5.de/get/get_comment.php";
 
             //connectUrl = "http://127.0.0.1/askm3/get_comment.php";
         }
