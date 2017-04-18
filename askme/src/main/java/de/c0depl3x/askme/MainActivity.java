@@ -58,16 +58,6 @@ public class MainActivity extends ReadingView implements SwipeRefreshLayout.OnRe
         final ListView listView = (ListView) findViewById(R.id.listdata);
         adapter = new QuestionAdapter(this, allQuestions);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long j) {
-                Question qClicked = (Question) listView.getItemAtPosition(position);
-
-                Intent intent = new Intent(MainActivity.this, StatsActivity.class);
-                intent.putExtra(EXTRA_QUESTION_ID, position);
-                startActivity(intent);
-            }
-        });
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshWrapper);
         refreshLayout.setOnRefreshListener(this);

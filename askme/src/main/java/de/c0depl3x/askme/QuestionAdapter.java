@@ -1,6 +1,7 @@
 package de.c0depl3x.askme;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import static de.c0depl3x.askme.MainActivity.EXTRA_QUESTION_ID;
 
 /**
  * Created by Luis on 23.11.2016.
@@ -88,6 +91,11 @@ class QuestionAdapter extends ArrayAdapter<Question> {
                     distance = currentX - startX;
                 }
                 else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
+                    if (distance < 10 && distance > -10) {
+                        Intent intent = new Intent(context, StatsActivity.class);
+                        intent.putExtra(EXTRA_QUESTION_ID, (Integer)view.getTag());
+                        context.startActivity(intent);
+                    }
                     distance = 0;
                 }
 

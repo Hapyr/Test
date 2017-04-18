@@ -3,4 +3,6 @@
     <string name="edit_name">Neue Frage</string>
     <string name="stats_name">Übersicht</string>
     <string name="profile_name">Profil</string>
+    <string name="newQuestionTitle">Was möchtest du Wissen?</string>
+    <string name="newQuestionOptionsTitle">Welche Antworten sind möglich?</string>
 </resources>
