@@ -73,41 +73,46 @@ class QuestionAdapter extends ArrayAdapter<Question> {
 
 
         item.setOnTouchListener(new View.OnTouchListener() {
-            private int distance;
-            private int startX;
-            private int currentX;
+            private int distanceX;
+            private int distanceY;
+            private int startX, startY;
+            private int currentX, currentY;
             private RecyclerView.ViewHolder holder;
 
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                     startX = (int) motionEvent.getX();
+                    startY = (int) motionEvent.getY();
                     currentX = startX;
-                    distance = 0;
+                    currentY = startY;
+                    distanceX = 0;
+                    distanceY = 0;
                     holder = (RecyclerView.ViewHolder) view.getTag();
                 }
                 else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
                     currentX = (int) motionEvent.getX();
-                    distance = currentX - startX;
+                    currentY = (int) motionEvent.getY();
+
+                    distanceX = currentX - startX;
+                    distanceY = currentY - startY;
                 }
                 else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
-                    if (distance < 10 && distance > -10) {
+                    if (Math.abs(distanceX) < 10 && Math.abs(distanceY) < 5) {
                         Intent intent = new Intent(context, StatsActivity.class);
                         intent.putExtra(EXTRA_QUESTION_ID, (Integer)view.getTag());
                         context.startActivity(intent);
                     }
-                    distance = 0;
+                    distanceX = 0;
                 }
 
-                if (distance > 300) {
-                    distance = 0;
+                if (distanceX < -300 && Math.abs(distanceY) < 75) {
                     view.setBackgroundResource(R.color.ProgressBarBackground);
-                } else if (distance < -300) {
-                    distance = 0;
+                } else if (distanceX > 300 && Math.abs(distanceY) < 75 ) {
                     view.setBackgroundResource(R.color.ProgressBarStatus);
                 }
 
-                view.setPadding(distance, 0, -1*distance, 0);
+                view.setPadding(distanceX, 0, -1*distanceX, 0);
 
                 return true;
             }
